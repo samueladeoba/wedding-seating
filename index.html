@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Your Seat</title>
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f5f5;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:420px;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+h1{
+    text-align:center;
+    margin-top:0;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    font-size:18px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    box-sizing:border-box;
+}
+
+#results{
+    margin-top:10px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    overflow:hidden;
+}
+
+.result{
+    padding:12px;
+    cursor:pointer;
+    border-bottom:1px solid #eee;
+}
+
+.result:last-child{
+    border-bottom:none;
+}
+
+.result:hover{
+    background:#efefef;
+}
+
+#tableNumber{
+    margin-top:25px;
+    text-align:center;
+    font-size:30px;
+    font-weight:bold;
+    color:#0066cc;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Find Your Table</h1>
+
+<input
+id="search"
+type="text"
+placeholder="Enter your first name"
+autocomplete="off">
+
+<div id="results"></div>
+
+<div id="tableNumber"></div>
+
+</div>
+
+<script>
+
+let guests = [];
+
+Papa.parse("please-find-your-seat.csv", {
+
+    download: true,
+    header: true,
+    skipEmptyLines: true,
+
+    complete: function(results){
+
+        guests = results.data;
+
+        console.log("Guests loaded:", guests.length);
+        console.log(guests);
+
+    }
+
+});
+
+const searchBox = document.getElementById("search");
+const resultsDiv = document.getElementById("results");
+const tableDiv = document.getElementById("tableNumber");
+
+searchBox.addEventListener("input", function(){
+
+    const search = this.value.trim().toLowerCase();
+
+    resultsDiv.innerHTML = "";
+    tableDiv.innerHTML = "";
+
+    if(search === "")
+        return;
+
+    const matches = guests.filter(person => {
+
+        const first = Object.values(person)[0]?.toString().toLowerCase() || "";
+
+        return first.includes(search);
+
+    });
+
+    matches.slice(0,10).forEach(person => {
+
+        const values = Object.values(person);
+
+        const first = values[0];
+        const last = values[1];
+        const table = values[2];
+
+        const div = document.createElement("div");
+
+        div.className = "result";
+
+        div.textContent = `${first} ${last}`;
+
+        div.onclick = function(){
+
+            searchBox.value = first;
+
+            resultsDiv.innerHTML = "";
+
+            tableDiv.innerHTML =
+            `Welcome <br><br>${first}<br><br>Your Table is <br><span style="font-size:48px;">${table}</span>`;
+
+        };
+
+        resultsDiv.appendChild(div);
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
