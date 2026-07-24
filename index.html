@@ -1,113 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Find Your Seat</title>
-
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
-<style>
-body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f8f1e7;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-}
-
-.container{
-    width:420px;
-    background:white;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0 10px 30px rgba(0,0,0,.15);
-}
-
-h1{
-    text-align:center;
-    margin-top:0;
-    font-family:'Playfair Display', serif;
-    font-size:42px;
-    font-weight:600;
-    color:#8b6b35;
-    letter-spacing:1px;
-}
-
-input{
-    width:100%;
-    padding:14px;
-    font-size:18px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    box-sizing:border-box;
-}
-
-#results{
-    margin-top:10px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    overflow:hidden;
-}
-
-.result{
-    padding:12px;
-    cursor:pointer;
-    border-bottom:1px solid #eee;
-}
-
-.result:last-child{
-    border-bottom:none;
-}
-
-.result:hover{
-    background:#efefef;
-}
-
-#tableNumber{
-    margin-top:25px;
-    text-align:center;
-    font-size:30px;
-    font-weight:bold;
-    color:#0066cc;
-}
-
-.welcome{
-    font-family:'Playfair Display', serif; /* Same as your Find Your Table heading */
-    color:#8b6b35;                         /* Same gold colour */
-    font-style:italic;
-    font-size:38px;
-    font-weight:600;
-}
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>Find Your Table</h1>
-
-<input
-id="search"
-type="text"
-placeholder="Enter your first name"
-autocomplete="off">
-
-<div id="results"></div>
-
-<div id="tableNumber"></div>
-
-</div>
-
 <script>
 
 let guests = [];
 
-Papa.parse("please-find-your-seat.csv", {
+Papa.parse("./please-find-your-seat.csv?v=1", {
 
     download: true,
     header: true,
@@ -120,13 +15,19 @@ Papa.parse("please-find-your-seat.csv", {
         console.log("Guests loaded:", guests.length);
         console.log(guests);
 
+    },
+
+    error: function(error){
+        console.log("CSV Error:", error);
     }
 
 });
 
+
 const searchBox = document.getElementById("search");
 const resultsDiv = document.getElementById("results");
 const tableDiv = document.getElementById("tableNumber");
+
 
 searchBox.addEventListener("input", function(){
 
@@ -135,24 +36,33 @@ searchBox.addEventListener("input", function(){
     resultsDiv.innerHTML = "";
     tableDiv.innerHTML = "";
 
-    if(search === "")
+
+    if(search === ""){
         return;
+    }
+
 
     const matches = guests.filter(person => {
 
-        const first = Object.values(person)[0]?.toString().toLowerCase() || "";
+        const firstName = person["First Name"] || Object.values(person)[0] || "";
 
-        return first.includes(search);
+        return firstName
+            .toString()
+            .toLowerCase()
+            .includes(search);
 
     });
 
+
     matches.slice(0,10).forEach(person => {
+
 
         const values = Object.values(person);
 
-        const first = values[0];
-        const last = values[1];
-        const table = values[2];
+        const first = person["First Name"] || values[0];
+        const last = person["Last Name"] || values[1];
+        const table = person["Table"] || values[2];
+
 
         const div = document.createElement("div");
 
@@ -160,24 +70,34 @@ searchBox.addEventListener("input", function(){
 
         div.textContent = `${first} ${last}`;
 
+
         div.onclick = function(){
+
 
             searchBox.value = first;
 
             resultsDiv.innerHTML = "";
 
+
             tableDiv.innerHTML =
-`			<span class="welcome">Welcome</span><br><br>${first}<br><br>Your Table is<br><span style="font-size:48px;">${table}</span>`;
+            `
+            <span class="welcome">Welcome</span><br><br>
+            <span class="luxury">${first}</span><br><br>
+            <span class="luxury">Your Table is</span><br>
+            <span class="luxury table-number">${table}</span>
+            `;
+
 
         };
 
+
         resultsDiv.appendChild(div);
+
 
     });
 
+
 });
 
-</script>
 
-</body>
-</html>
+</script>
