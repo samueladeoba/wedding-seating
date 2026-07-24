@@ -1,103 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Find Your Seat</title>
+
+
+<!-- CSV Reader -->
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+
+<!-- Luxury Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+
+<style>
+
+body{
+
+    margin:0;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#f8f1e7;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+}
+
+
+.container{
+
+    width:420px;
+
+    max-width:90%;
+
+    background:#fffaf3;
+
+    padding:35px;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 35px rgba(0,0,0,.15);
+
+    text-align:center;
+
+}
+
+
+/* Main heading */
+
+h1{
+
+    margin:0;
+
+    font-family:'Playfair Display', serif;
+
+    font-size:42px;
+
+    color:#8b6b35;
+
+    font-weight:600;
+
+}
+
+
+
+/* Couple name */
+
+.couple-name{
+
+    margin-top:10px;
+
+    font-family:'Great Vibes', cursive;
+
+    font-size:60px;
+
+    color:#8b6b35;
+
+}
+
+
+.hashtag{
+
+    font-family:'Great Vibes', cursive;
+
+    font-size:26px;
+
+    color:#8b6b35;
+
+    margin-bottom:30px;
+
+}
+
+
+
+/* Search */
+
+input{
+
+    width:100%;
+
+    padding:15px;
+
+    font-size:17px;
+
+    border:1px solid #d8bd8a;
+
+    border-radius:10px;
+
+    box-sizing:border-box;
+
+    background:white;
+
+    outline:none;
+
+}
+
+
+input:focus{
+
+    border-color:#8b6b35;
+
+}
+
+
+
+/* Suggestions */
+
+#results{
+
+    margin-top:12px;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+}
+
+
+.result{
+
+    background:white;
+
+    padding:14px;
+
+    border-bottom:1px solid #eee;
+
+    cursor:pointer;
+
+}
+
+
+.result:hover{
+
+    background:#f5e8d2;
+
+}
+
+
+
+/* Result text */
+
+#tableNumber{
+
+    margin-top:30px;
+
+    font-family:'Playfair Display', serif;
+
+    color:#8b6b35;
+
+    font-size:30px;
+
+}
+
+
+
+.welcome,
+.luxury{
+
+    font-family:'Playfair Display', serif;
+
+    color:#8b6b35;
+
+    font-weight:600;
+
+}
+
+
+.welcome{
+
+    font-style:italic;
+
+    font-size:38px;
+
+}
+
+
+.table-number{
+
+    font-size:48px;
+
+}
+
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>Find Your Table</h1>
+
+
+<div class="couple-name">
+
+Ayo &amp; Dayo
+
+</div>
+
+
+<div class="hashtag">
+
+#AyoTiDayo2026
+
+</div>
+
+
+
+<input
+
+id="search"
+
+type="text"
+
+placeholder="Enter your first name"
+
+autocomplete="off">
+
+
+<div id="results"></div>
+
+
+<div id="tableNumber"></div>
+
+
+
+</div>
+
+
+
 <script>
+
 
 let guests = [];
 
+
 Papa.parse("./please-find-your-seat.csv?v=1", {
 
-    download: true,
-    header: true,
-    skipEmptyLines: true,
 
-    complete: function(results){
+    download:true,
+
+    header:true,
+
+    skipEmptyLines:true,
+
+
+    complete:function(results){
+
 
         guests = results.data;
 
-        console.log("Guests loaded:", guests.length);
-        console.log(guests);
+
+        console.log("Guests loaded:", guests);
+
 
     },
 
-    error: function(error){
-        console.log("CSV Error:", error);
+
+    error:function(error){
+
+        console.log(error);
+
     }
+
 
 });
 
 
+
+
 const searchBox = document.getElementById("search");
+
 const resultsDiv = document.getElementById("results");
+
 const tableDiv = document.getElementById("tableNumber");
+
+
+
 
 
 searchBox.addEventListener("input", function(){
 
+
+
     const search = this.value.trim().toLowerCase();
 
-    resultsDiv.innerHTML = "";
-    tableDiv.innerHTML = "";
+
+    resultsDiv.innerHTML="";
+
+    tableDiv.innerHTML="";
 
 
-    if(search === ""){
+
+    if(search===""){
+
         return;
+
     }
 
 
-    const matches = guests.filter(person => {
 
-        const firstName = person["First Name"] || Object.values(person)[0] || "";
+    const matches = guests.filter(person=>{
 
-        return firstName
-            .toString()
-            .toLowerCase()
-            .includes(search);
+
+        const first = Object.values(person)[0];
+
+
+        return first && first.toLowerCase().includes(search);
+
 
     });
 
 
-    matches.slice(0,10).forEach(person => {
+
+
+    matches.slice(0,10).forEach(person=>{
 
 
         const values = Object.values(person);
 
-        const first = person["First Name"] || values[0];
-        const last = person["Last Name"] || values[1];
-        const table = person["Table"] || values[2];
+
+        const first = values[0];
+
+        const last = values[1];
+
+        const table = values[2];
 
 
-        const div = document.createElement("div");
 
-        div.className = "result";
+        const div=document.createElement("div");
+
+
+        div.className="result";
+
 
         div.textContent = `${first} ${last}`;
 
 
-        div.onclick = function(){
+
+        div.onclick=function(){
 
 
-            searchBox.value = first;
 
-            resultsDiv.innerHTML = "";
+            resultsDiv.innerHTML="";
 
 
-            tableDiv.innerHTML =
-            `
+
+            tableDiv.innerHTML=`
+
             <span class="welcome">Welcome</span><br><br>
+
             <span class="luxury">${first}</span><br><br>
+
             <span class="luxury">Your Table is</span><br>
+
             <span class="luxury table-number">${table}</span>
+
             `;
 
 
         };
 
 
+
         resultsDiv.appendChild(div);
+
 
 
     });
 
 
+
 });
 
 
+
 </script>
+
+
+
+</body>
+
+</html>
