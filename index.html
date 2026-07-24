@@ -73,6 +73,14 @@ input{
     font-weight:bold;
     color:#0066cc;
 }
+
+.welcome{
+    font-family:'Playfair Display', serif; /* Same as your Find Your Table heading */
+    color:#8b6b35;                         /* Same gold colour */
+    font-style:italic;
+    font-size:38px;
+    font-weight:600;
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -159,7 +167,7 @@ searchBox.addEventListener("input", function(){
             resultsDiv.innerHTML = "";
 
             tableDiv.innerHTML =
-            `Welcome <br><br>${first}<br><br>Your Table is <br><span style="font-size:48px;">${table}</span>`;
+`			<span class="welcome">Welcome</span><br><br>${first}<br><br>Your Table is<br><span style="font-size:48px;">${table}</span>`;
 
         };
 
