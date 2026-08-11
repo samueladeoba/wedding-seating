@@ -7,60 +7,40 @@
         <dict>
             <key>AutoJoin</key>
             <true/>
-
             <key>EncryptionType</key>
-            <string>WPA</string>
-
+            <string>WPA2</string>
             <key>Password</key>
             <string>AyoTiDayo22</string>
-
-            <key>PayloadDescription</key>
-            <string>Connects to the Wi-Fi network</string>
-
-            <key>PayloadDisplayName</key>
-            <string>Kurisumasu_T&amp;S Wi-Fi</string>
-
-            <key>PayloadIdentifier</key>
-            <string>com.ayodayo.wifi</string>
-
-            <key>PayloadOrganization</key>
-            <string>Ayo &amp; Dayo</string>
-
-            <key>PayloadType</key>
-            <string>com.apple.wifi.managed</string>
-
-            <key>PayloadUUID</key>
-            <string>7B5F2C91-4E8A-4D63-A1F7-92C84E5B3016</string>
-
-            <key>PayloadVersion</key>
-            <integer>1</integer>
-
             <key>SSID_STR</key>
             <string>Kurisumasu_T&amp;S</string>
+            <key>PayloadDescription</key>
+            <string>Configures the Kurisumasu_T&amp;S Wi-Fi network</string>
+            <key>PayloadDisplayName</key>
+            <string>Kurisumasu_T&amp;S Wi-Fi</string>
+            <key>PayloadIdentifier</key>
+            <string>com.ayotidayo.wifi.kurisumasu-ts</string>
+            <key>PayloadOrganization</key>
+            <string>AyoTiDayo</string>
+            <key>PayloadType</key>
+            <string>com.apple.wifi.managed</string>
+            <key>PayloadUUID</key>
+            <string>7B6B0B8D-9D83-4F6D-9C41-2A3D4C7B8E11</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
         </dict>
     </array>
-
-    <key>PayloadDescription</key>
-    <string>Wi-Fi configuration for guests</string>
-
     <key>PayloadDisplayName</key>
-    <string>Ayo &amp; Dayo Guest Wi-Fi</string>
-
+    <string>Kurisumasu_T&amp;S Wi-Fi</string>
     <key>PayloadIdentifier</key>
-    <string>com.ayodayo.wifi.profile</string>
-
+    <string>com.ayotidayo.wifi-profile</string>
     <key>PayloadOrganization</key>
-    <string>Ayo &amp; Dayo</string>
-
+    <string>AyoTiDayo</string>
     <key>PayloadRemovalDisallowed</key>
     <false/>
-
     <key>PayloadType</key>
     <string>Configuration</string>
-
     <key>PayloadUUID</key>
-    <string>C38A71D4-9F25-46B8-BE03-6A5172D94C80</string>
-
+    <string>0F8E3B7A-2C61-4D5A-A9E2-61C3F7B04D22</string>
     <key>PayloadVersion</key>
     <integer>1</integer>
 </dict>
