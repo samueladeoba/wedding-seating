@@ -1,0 +1,25 @@
+<div class="wifi-card">
+  <h2>Wedding Wi-Fi</h2>
+
+  <p>
+    <strong>Wi-Fi Name</strong><br>
+    Kurisumasu_T&amp;S
+  </p>
+
+  <p>
+    <strong>Password</strong><br>
+    <span id="wifiPassword">AyoTiDayo22</span>
+  </p>
+
+  <button onclick="copyWifiPassword()">Copy Password</button>
+</div>
+
+<script>
+function copyWifiPassword() {
+    const password = document.getElementById("wifiPassword").textContent;
+
+    navigator.clipboard.writeText(password).then(() => {
+        alert("Wi-Fi password copied!");
+    });
+}
+</script>
