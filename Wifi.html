@@ -1,25 +1,157 @@
-<div class="wifi-card">
-  <h2>Wedding Wi-Fi</h2>
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Wi-Fi | Ayo & Dayo</title>
 
-  <p>
-    <strong>Wi-Fi Name</strong><br>
-    Kurisumasu_T&amp;S
-  </p>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-  <p>
-    <strong>Password</strong><br>
-    <span id="wifiPassword">AyoTiDayo22</span>
-  </p>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background: #f8f5ef;
+            color: #222;
+            padding: 20px;
+        }
 
-  <button onclick="copyWifiPassword()">Copy Password</button>
-</div>
+        .wifi-card {
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            background: white;
+            padding: 45px 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
 
-<script>
-function copyWifiPassword() {
-    const password = document.getElementById("wifiPassword").textContent;
+        .icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
 
-    navigator.clipboard.writeText(password).then(() => {
-        alert("Wi-Fi password copied!");
-    });
-}
-</script>
+        h1 {
+            margin: 0 0 10px;
+            font-size: 30px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 35px;
+        }
+
+        .label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .wifi-name {
+            font-size: 23px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .password {
+            font-size: 23px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: #222;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #message {
+            margin-top: 15px;
+            min-height: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wifi-card">
+
+        <div class="icon">📶</div>
+
+        <h1>Wedding Wi-Fi</h1>
+
+        <p class="subtitle">
+            Stay connected and share the memories!
+        </p>
+
+        <div class="label">Wi-Fi Name</div>
+
+        <div class="wifi-name">
+            Kurisumasu_T&amp;S
+        </div>
+
+        <div class="label">Password</div>
+
+        <div class="password">
+            AyoTiDayo22
+        </div>
+
+        <button onclick="copyPassword()">
+            📋 Copy Password
+        </button>
+
+        <div id="message"></div>
+
+        <div class="footer">
+            Ayo &amp; Dayo • 1 August 2026
+        </div>
+
+    </div>
+
+    <script>
+        function copyPassword() {
+            const password = "AyoTiDayo22";
+
+            navigator.clipboard.writeText(password)
+                .then(() => {
+                    document.getElementById("message").textContent =
+                        "✓ Password copied to clipboard!";
+                })
+                .catch(() => {
+                    document.getElementById("message").textContent =
+                        "Please copy the password manually.";
+                });
+        }
+    </script>
+
+</body>
+</html>
+```
