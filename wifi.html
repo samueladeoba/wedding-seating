@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,29 +60,42 @@
             font-size: 23px;
             font-weight: bold;
             margin-bottom: 30px;
+            word-break: break-word;
         }
 
         .password {
             font-size: 23px;
             font-weight: bold;
-            letter-spacing: 1px;
-            margin-bottom: 25px;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            min-height: 28px;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
         }
 
         button {
-            width: 100%;
-            padding: 15px;
+            flex: 1;
+            padding: 14px 10px;
             border: none;
             border-radius: 12px;
             background: #222;
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
         }
 
         button:active {
             transform: scale(0.98);
+        }
+
+        .secondary-button {
+            background: #e8e5df;
+            color: #222;
         }
 
         #message {
@@ -95,6 +109,16 @@
             margin-top: 30px;
             font-size: 13px;
             color: #aaa;
+        }
+
+        @media (max-width: 400px) {
+            .wifi-card {
+                padding: 35px 20px;
+            }
+
+            .button-row {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -119,13 +143,27 @@
 
         <div class="label">Password</div>
 
-        <div class="password">
-            AyoTiDayo22
+        <div class="password" id="passwordDisplay">
+            ***********
         </div>
 
-        <button onclick="copyPassword()">
-            📋 Copy Password
-        </button>
+        <div class="button-row">
+
+            <button
+                type="button"
+                class="secondary-button"
+                onclick="togglePassword()"
+                id="toggleButton">
+                👁 Show Password
+            </button>
+
+            <button
+                type="button"
+                onclick="copyPassword()">
+                📋 Copy Password
+            </button>
+
+        </div>
 
         <div id="message"></div>
 
@@ -135,20 +173,63 @@
 
     </div>
 
-    <script>
-        function copyPassword() {
-            const password = "AyoTiDayo22";
 
-            navigator.clipboard.writeText(password)
+    <script>
+
+        const wifiPassword = "AyoTiDayo22";
+        let passwordVisible = false;
+
+
+        function togglePassword() {
+
+            const passwordDisplay =
+                document.getElementById("passwordDisplay");
+
+            const toggleButton =
+                document.getElementById("toggleButton");
+
+
+            if (passwordVisible) {
+
+                passwordDisplay.textContent = "***********";
+
+                toggleButton.textContent = "👁 Show Password";
+
+                passwordVisible = false;
+
+            } else {
+
+                passwordDisplay.textContent = wifiPassword;
+
+                toggleButton.textContent = "🙈 Hide Password";
+
+                passwordVisible = true;
+
+            }
+
+        }
+
+
+        function copyPassword() {
+
+            navigator.clipboard.writeText(wifiPassword)
+
                 .then(() => {
+
                     document.getElementById("message").textContent =
                         "✓ Password copied to clipboard!";
+
                 })
+
                 .catch(() => {
+
                     document.getElementById("message").textContent =
                         "Please copy the password manually.";
+
                 });
+
         }
+
     </script>
 
 </body>
