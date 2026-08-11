@@ -25,7 +25,7 @@
         <string>Kurisumasu_T&amp;S</string>
 
         <key>EncryptionType</key>
-        <string>WPA</string>
+        <string>WPA/WPA2-Personal</string>
 
         <key>Password</key>
         <string>AyoTiDayo22</string>
