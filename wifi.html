@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Wedding Wi-Fi | Ayo & Dayo</title>
+
+    <!-- Wedding Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -37,14 +41,19 @@
             margin-bottom: 10px;
         }
 
+        /* Main Heading */
         h1 {
             margin: 0 0 10px;
-            font-size: 30px;
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 600;
+            color: #8b6b35;
         }
 
         .subtitle {
             color: #777;
             margin-bottom: 35px;
+            line-height: 1.6;
         }
 
         .label {
@@ -55,16 +64,21 @@
             margin-bottom: 8px;
         }
 
+        /* Wi-Fi Name */
         .wifi-name {
+            font-family: 'Playfair Display', serif;
             font-size: 23px;
-            font-weight: bold;
+            font-weight: 600;
             margin-bottom: 30px;
             word-break: break-word;
+            color: #8b6b35;
         }
 
+        /* Password */
         .password {
+            font-family: 'Playfair Display', serif;
             font-size: 23px;
-            font-weight: bold;
+            font-weight: 600;
             letter-spacing: 3px;
             margin-bottom: 20px;
             min-height: 28px;
@@ -86,6 +100,11 @@
             font-size: 15px;
             font-weight: bold;
             cursor: pointer;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        button:hover {
+            opacity: 0.9;
         }
 
         button:active {
@@ -104,13 +123,16 @@
             color: #777;
         }
 
+        /* Wedding Footer */
         .footer {
             margin-top: 30px;
-            font-size: 13px;
-            color: #aaa;
+            font-family: 'Great Vibes', cursive;
+            font-size: 25px;
+            color: #555;
         }
 
         @media (max-width: 400px) {
+
             .wifi-card {
                 padding: 35px 20px;
             }
@@ -118,6 +140,7 @@
             .button-row {
                 flex-direction: column;
             }
+
         }
     </style>
 </head>
@@ -134,13 +157,17 @@
             Stay connected and share the memories!
         </p>
 
-        <div class="label">Wi-Fi Name</div>
+        <div class="label">
+            Wi-Fi Name
+        </div>
 
         <div class="wifi-name">
             Kurisumasu_T&amp;S
         </div>
 
-        <div class="label">Password</div>
+        <div class="label">
+            Password
+        </div>
 
         <div class="password" id="passwordDisplay">
             ***********
@@ -167,7 +194,7 @@
         <div id="message"></div>
 
         <div class="footer">
-            Ayo &amp; Dayo • 1 August 2026
+            Ayo &amp; Dayo
         </div>
 
     </div>
@@ -176,6 +203,7 @@
     <script>
 
         const wifiPassword = "AyoTiDayo22";
+
         let passwordVisible = false;
 
 
