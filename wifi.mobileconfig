@@ -1,58 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
     <key>PayloadContent</key>
     <array>
         <dict>
+            <key>AutoJoin</key>
+            <true/>
+
+            <key>EncryptionType</key>
+            <string>WPA</string>
+
+            <key>Password</key>
+            <string>AyoTiDayo22</string>
+
+            <key>PayloadDescription</key>
+            <string>Connects to the Wi-Fi network</string>
+
+            <key>PayloadDisplayName</key>
+            <string>Kurisumasu_T&amp;S Wi-Fi</string>
+
+            <key>PayloadIdentifier</key>
+            <string>com.ayodayo.wifi</string>
+
+            <key>PayloadOrganization</key>
+            <string>Ayo &amp; Dayo</string>
+
             <key>PayloadType</key>
             <string>com.apple.wifi.managed</string>
 
-```
-        <key>PayloadIdentifier</key>
-        <string>com.ayodayo.wifi</string>
+            <key>PayloadUUID</key>
+            <string>7B5F2C91-4E8A-4D63-A1F7-92C84E5B3016</string>
 
-        <key>PayloadUUID</key>
-        <string>7B5F2C91-4E8A-4D63-A1F7-92C84E5B3016</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
 
-        <key>PayloadVersion</key>
-        <integer>1</integer>
+            <key>SSID_STR</key>
+            <string>Kurisumasu_T&amp;S</string>
+        </dict>
+    </array>
 
-        <key>SSID_STR</key>
-        <string>Kurisumasu_T&amp;S</string>
+    <key>PayloadDescription</key>
+    <string>Wi-Fi configuration for guests</string>
 
-        <key>EncryptionType</key>
-        <string>WPA/WPA2-Personal</string>
+    <key>PayloadDisplayName</key>
+    <string>Ayo &amp; Dayo Guest Wi-Fi</string>
 
-        <key>Password</key>
-        <string>AyoTiDayo22</string>
+    <key>PayloadIdentifier</key>
+    <string>com.ayodayo.wifi.profile</string>
 
-        <key>AutoJoin</key>
-        <true/>
-    </dict>
-</array>
+    <key>PayloadOrganization</key>
+    <string>Ayo &amp; Dayo</string>
 
-<key>PayloadDisplayName</key>
-<string>Ayo &amp; Dayo Wi-Fi</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
 
-<key>PayloadIdentifier</key>
-<string>com.ayodayo.wifi.profile</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
 
-<key>PayloadOrganization</key>
-<string>Ayo &amp; Dayo</string>
+    <key>PayloadUUID</key>
+    <string>C38A71D4-9F25-46B8-BE03-6A5172D94C80</string>
 
-<key>PayloadType</key>
-<string>Configuration</string>
-
-<key>PayloadUUID</key>
-<string>C38A71D4-9F25-46B8-BE03-6A5172D94C80</string>
-
-<key>PayloadVersion</key>
-<integer>1</integer>
-```
-
+    <key>PayloadVersion</key>
+    <integer>1</integer>
 </dict>
 </plist>
