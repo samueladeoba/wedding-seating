@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7e8f3">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Pink Ledger">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>Pink Ledger</title>
+<style>
+:root{--ink:#39283e;--muted:#806e84;--paper:#fffaff;--rose:#f3c6df;--lilac:#d8cafa;--peach:#ffe0c9;--ice:#c9d8ff;--plum:#6b4776;--line:#efdfed;--good:#477b69;--bad:#b64e78}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#fff7fc,#f1edff 55%,#fff1e8);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:88px}
+header{padding:24px 20px 15px;display:flex;justify-content:space-between;align-items:center;max-width:900px;margin:auto}
+.brand{font-family:Georgia,serif;font-size:27px;letter-spacing:-.8px}.brand span{color:#b56c9b}.sub{font-size:10px;letter-spacing:2px;color:var(--muted);font-weight:700}
+main{max-width:900px;margin:auto;padding:0 16px}.monthline{display:flex;justify-content:space-between;align-items:center;margin:10px 4px 14px;color:var(--muted);font-size:13px}
+.hero{background:linear-gradient(125deg,#f5d8e9,#e4dafa 60%,#dce7ff);border-radius:26px;padding:22px;box-shadow:0 12px 35px #9876a51c;position:relative;overflow:hidden}
+.hero:after{content:"✦";position:absolute;right:20px;top:5px;font-size:76px;color:#fff8;transform:rotate(14deg)}
+.eyebrow{font-size:11px;letter-spacing:1.7px;font-weight:800;color:#765b7c}.balance{font:42px Georgia,serif;margin:6px 0}.hero small{color:#705d77}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:13px 0}.stat,.panel{background:#ffffffd9;border:1px solid #fff;border-radius:20px;padding:16px;box-shadow:0 6px 24px #75577b0b}
+.stat label,.muted{font-size:12px;color:var(--muted)}.stat strong{display:block;font:24px Georgia,serif;margin-top:5px}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:23px 3px 10px}.sectionhead h2{font:21px Georgia,serif;margin:0}.link{border:0;background:none;color:#985e8c;font-weight:700}
+.panel{margin-bottom:12px}.progress{height:9px;border-radius:20px;background:#f0e5f0;overflow:hidden;margin:10px 0}.progress i{display:block;height:100%;background:linear-gradient(90deg,#d78db8,#a995e8);border-radius:20px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.bill{padding:12px 0;border-bottom:1px solid var(--line)}.bill:last-child{border:0}.billname{font-weight:700}.pill{font-size:10px;padding:4px 9px;border-radius:20px;background:#f5e8f2;color:#885a83}.pill.paid{background:#e6f3ed;color:var(--good)}.pill.soon{background:#fff0e4;color:#a86b3f}
+.tabs{position:fixed;bottom:0;left:0;right:0;background:#fffafdeF;backdrop-filter:blur(16px);border-top:1px solid var(--line);display:flex;justify-content:center;gap:4px;padding:9px 8px calc(9px + env(safe-area-inset-bottom));z-index:5}
+.tabs button{flex:1;max-width:180px;border:0;background:transparent;color:#927d95;padding:8px 3px;border-radius:14px;font-size:11px}.tabs button.active{background:#f4e4f1;color:#744b78;font-weight:800}.tabs b{display:block;font-size:18px;font-weight:500}
+.action{border:0;border-radius:14px;padding:11px 15px;background:#704c7b;color:white;font-weight:700}.action.light{background:#f4e7f2;color:#754c7b}.field{width:100%;padding:12px;border:1px solid #ead9e9;border-radius:12px;background:#fffaff;color:var(--ink);font:inherit;margin:5px 0 12px}label{font-size:12px;color:var(--muted);font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hidden{display:none!important}.notice{font-size:12px;color:#796a7c;background:#f8eff8;padding:12px;border-radius:14px;margin-top:10px}
+.modal{position:fixed;inset:0;background:#39283e66;display:none;align-items:end;justify-content:center;z-index:10}.modal.show{display:flex}.sheet{background:#fffaff;width:100%;max-width:560px;border-radius:24px 24px 0 0;padding:22px 20px calc(24px + env(safe-area-inset-bottom));max-height:90vh;overflow:auto}.sheet h2{font:24px Georgia,serif;margin:0 0 15px}.close{float:right;border:0;background:#f4e7f2;border-radius:50%;width:32px;height:32px}
+@media(min-width:700px){.stats{grid-template-columns:repeat(4,1fr)}.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.layout .sectionhead{margin-top:0}}
+</style>
+</head>
+<body>
+<header><div><div class="brand">Pink <span>Ledger</span> ✧</div><div class="sub">YOUR HOME, IN HARMONY</div></div><button class="action light" onclick="openModal('settingsModal')">⚙</button></header>
+<main>
+<div class="monthline"><span id="monthLabel">MONTHLY OVERVIEW</span><span>✦ A softer way to budget</span></div>
+<section class="hero"><div class="eyebrow">AVAILABLE AFTER BILLS</div><div class="balance" id="leftover">£0.00</div><small id="heroNote">Add your income and bills to see your monthly picture.</small></section>
+<div class="stats">
+<div class="stat"><label>Monthly income</label><strong id="incomeTotal">£0</strong></div>
+<div class="stat"><label>Planned bills</label><strong id="billTotal">£0</strong></div>
+<div class="stat"><label>Spent this month</label><strong id="spentTotal">£0</strong></div>
+<div class="stat"><label>Savings goal</label><strong id="savingsTotal">£0</strong></div>
+</div>
+<div class="layout">
+<div>
+<div class="sectionhead"><h2>Bill rhythm</h2><button class="link" onclick="openModal('billModal')">＋ Add bill</button></div>
+<div class="panel"><div class="row"><b>Monthly bills paid</b><span class="muted" id="billProgressText">£0 / £0</span></div><div class="progress"><i id="billProgress" style="width:0%"></i></div><div id="billList"></div></div>
+<div class="sectionhead"><h2>Spending diary</h2><button class="link" onclick="openModal('spendModal')">＋ Add spend</button></div>
+<div class="panel" id="spendList"><div class="muted">Your purchases will appear here.</div></div>
+</div>
+<div>
+<div class="sectionhead"><h2>Little goals</h2><button class="link" onclick="openModal('goalModal')">＋ Add goal</button></div>
+<div class="panel" id="goalList"><div class="muted">Give your savings something lovely to grow towards.</div></div>
+<div class="sectionhead"><h2>Bank connection</h2></div>
+<div class="panel"><div class="row"><b>Open Banking</b><span class="pill">Not connected</span></div><p class="muted">Secure bank syncing is not active in this starter version. Your bank login is never requested or stored here.</p><button class="action light" onclick="alert('Bank syncing needs a regulated Open Banking provider and a secure hosted backend. This prototype does not collect bank credentials.')">How it works</button></div>
+</div>
+</div>
+<div class="notice">Your data is saved on this device in this browser. It is not sent to a server. Export a backup regularly from Settings.</div>
+</main>
+<nav class="tabs"><button class="active" onclick="showTab('home',this)"><b>⌂</b>Home</button><button onclick="showTab('bills',this)"><b>♡</b>Bills</button><button onclick="showTab('spending',this)"><b>✧</b>Spending</button><button onclick="openModal('settingsModal')"><b>⚙</b>Settings</button></nav>
+<div class="modal" id="billModal"><div class="sheet"><button class="close" onclick="closeModal('billModal')">×</button><h2>Add a household bill</h2><form onsubmit="addBill(event)"><label>Bill name</label><input class="field" id="billName" placeholder="e.g. Council tax" required><div class="grid2"><div><label>Monthly amount (£)</label><input class="field" id="billAmount" type="number" min="0.01" step=".01" required></div><div><label>Due day</label><input class="field" id="billDay" type="number" min="1" max="31" value="1"></div></div><label>Category</label><select class="field" id="billCategory"><option>Home</option><option>Utilities</option><option>Transport</option><option>Subscriptions</option><option>Insurance</option><option>Other</option></select><button class="action" type="submit">Save bill</button></form></div></div>
+<div class="modal" id="spendModal"><div class="sheet"><button class="close" onclick="closeModal('spendModal')">×</button><h2>Log a purchase</h2><form onsubmit="addSpend(event)"><label>What was it?</label><input class="field" id="spendName" placeholder="e.g. Weekly food shop" required><label>Amount (£)</label><input class="field" id="spendAmount" type="number" min=".01" step=".01" required><label>Category</label><select class="field" id="spendCategory"><option>Food</option><option>Home</option><option>Travel</option><option>Personal</option><option>Fun</option><option>Other</option></select><button class="action" type="submit">Add spending</button></form></div></div>
+<div class="modal" id="goalModal"><div class="sheet"><button class="close" onclick="closeModal('goalModal')">×</button><h2>Create a little goal</h2><form onsubmit="addGoal(event)"><label>Goal name</label><input class="field" id="goalName" placeholder="e.g. Summer getaway" required><label>Target (£)</label><input class="field" id="goalAmount" type="number" min="1" step=".01" required><button class="action" type="submit">Create goal</button></form></div></div>
+<div class="modal" id="settingsModal"><div class="sheet"><button class="close" onclick="closeModal('settingsModal')">×</button><h2>Your money settings</h2><form onsubmit="saveSettings(event)"><label>Monthly take-home income (£)</label><input class="field" id="incomeInput" type="number" min="0" step=".01"><label>Monthly savings target (£)</label><input class="field" id="savingsInput" type="number" min="0" step=".01"><button class="action" type="submit">Save settings</button></form><hr style="border:0;border-top:1px solid #efdfed;margin:20px 0"><button class="action light" onclick="exportData()">Export my backup</button> <button class="action light" onclick="resetData()">Reset app</button><p class="muted">Export downloads a JSON backup of your locally stored budget.</p></div></div>
+<script>
+const KEY='pink-ledger-v1';
+let data=JSON.parse(localStorage.getItem(KEY)||'null')||{income:0,savings:0,bills:[],spends:[],goals:[]};
+const money=n=>new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(Number(n)||0);
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function render(){
+ const bills=data.bills.reduce((s,b)=>s+b.amount,0),paid=data.bills.filter(b=>b.paid).reduce((s,b)=>s+b.amount,0),spent=data.spends.reduce((s,x)=>s+x.amount,0),left=data.income-bills-spent;
+ document.getElementById('monthLabel').textContent=new Date().toLocaleDateString('en-GB',{month:'long',year:'numeric'}).toUpperCase()+' OVERVIEW';
+ document.getElementById('leftover').textContent=money(left);document.getElementById('heroNote').textContent=left<0?'Your plan is over budget — review bills and spending.':'Your income minus planned bills and logged spending.';
+ document.getElementById('incomeTotal').textContent=money(data.income);document.getElementById('billTotal').textContent=money(bills);document.getElementById('spentTotal').textContent=money(spent);document.getElementById('savingsTotal').textContent=money(data.savings);
+ document.getElementById('billProgressText').textContent=money(paid)+' / '+money(bills);document.getElementById('billProgress').style.width=(bills?Math.min(100,paid/bills*100):0)+'%';
+ document.getElementById('billList').innerHTML=data.bills.length?data.bills.map((b,i)=>`<div class="bill row"><div><div class="billname">${esc(b.name)}</div><div class="muted">${esc(b.category)} · due ${b.day}${suffix(b.day)}</div></div><div style="text-align:right"><b>${money(b.amount)}</b><br><button class="link" onclick="togglePaid(${i})">${b.paid?'↶ Mark unpaid':'✓ Mark paid'}</button> <button class="link" onclick="removeItem('bills',${i})">×</button></div></div>`).join(''):'<p class="muted">No bills yet. Add rent, council tax, utilities and subscriptions.</p>';
+ document.getElementById('spendList').innerHTML=data.spends.length?[...data.spends].reverse().map((s,i)=>`<div class="bill row"><div><b>${esc(s.name)}</b><div class="muted">${esc(s.category)} · ${esc(s.date)}</div></div><b>${money(s.amount)}</b></div>`).join(''):'<div class="muted">Your purchases will appear here.</div>';
+ document.getElementById('goalList').innerHTML=data.goals.length?data.goals.map(g=>`<div class="bill"><div class="row"><b>${esc(g.name)}</b><b>${money(g.target)}</b></div><div class="muted">Target savings pot</div></div>`).join(''):'<div class="muted">Give your savings something lovely to grow towards.</div>';
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function suffix(n){return n%10===1&&n!==11?'st':n%10===2&&n!==12?'nd':n%10===3&&n!==13?'rd':'th'}
+function openModal(id){document.getElementById(id).classList.add('show');if(id==='settingsModal'){incomeInput.value=data.income;savingsInput.value=data.savings}}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function addBill(e){e.preventDefault();data.bills.push({name:billName.value,amount:+billAmount.value,day:+billDay.value,category:billCategory.value,paid:false});e.target.reset();closeModal('billModal');save()}
+function addSpend(e){e.preventDefault();data.spends.push({name:spendName.value,amount:+spendAmount.value,category:spendCategory.value,date:new Date().toLocaleDateString('en-GB')});e.target.reset();closeModal('spendModal');save()}
+function addGoal(e){e.preventDefault();data.goals.push({name:goalName.value,target:+goalAmount.value});e.target.reset();closeModal('goalModal');save()}
+function saveSettings(e){e.preventDefault();data.income=+incomeInput.value;data.savings=+savingsInput.value;closeModal('settingsModal');save()}
+function togglePaid(i){data.bills[i].paid=!data.bills[i].paid;save()}
+function removeItem(k,i){if(confirm('Remove this item?')){data[k].splice(i,1);save()}}
+function exportData(){let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.href=u;a.download='pink-ledger-backup.json';a.click();URL.revokeObjectURL(u)}
+function resetData(){if(confirm('Delete all Pink Ledger data on this device?')){data={income:0,savings:0,bills:[],spends:[],goals:[]};save();closeModal('settingsModal')}}
+function showTab(tab,btn){document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');if(tab==='bills')document.getElementById('billModal').classList.add('show');if(tab==='spending')document.getElementById('spendModal').classList.add('show')}
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+render();
+</script>
+</body></html>
