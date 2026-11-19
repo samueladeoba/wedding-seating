@@ -1,0 +1,51 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="theme-color" content="#f4cce2">
+
+<title>Pink Ledger</title>
+
+<style>
+
+:root {
+
+  --pink:#f4cce2;
+
+  --lilac:#ded3fb;
+
+  --peach:#ffe5d1;
+
+  --plum:#704d7c;
+
+  --ink:#39283f;
+
+  --muted:#806e85;
+
+  --white:#fffaff;
+
+}
+
+* {box-sizing:border-box}
+
+body {
+
+  margin:0;
+
+  padding:15px;
+
+  padding-bottom:90px;
+
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+
+  color:var(--ink);
+
+  background:linear-gradient(145deg,#fff8fd,#f1efff,#fff2e9);
